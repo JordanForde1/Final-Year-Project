@@ -1,0 +1,34 @@
+<!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+{% load leaflet_tags %}
+<head>
+
+    <!-- Map in center of the screen -->
+    {% leaflet_js %}
+    {% leaflet_css %}
+      <style>
+          #mapid{
+              margin: auto;
+              height: 10%;
+              width: 50%;
+              padding: 10px
+          }
+  </style>
+</head>
+<h1>{{ questions.question_text }}</h1>
+<body>
+<ul>
+<!-- Shows the question text and how many votes  -->
+{% for choice in questions.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'polls:detail' questions.id %}">Vote again?</a>
+<br><br><br><br>
+
+<!-- initialising map-->
+
+<div id="mapid">
+{% leaflet_map "mymap" %}
+</div>
+</body>
